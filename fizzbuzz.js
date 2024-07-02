@@ -1,24 +1,43 @@
 // This is our main function
 function fizzbuzz() {
-    for (let i = 1; i <= 100; i++) {
-        if (i % 3 == 0 && i % 5 == 0 & i % 7 == 0) {
-            console.log("FizzBuzzBang")
-        } else if (i % 3 == 0 && i % 5 == 0) {
-            console.log("FizzBuzz")
-        } else if (i % 3 == 0 && i % 7 == 0) {
-            console.log("FizzBang")
-        } else if (i % 5 == 0 && i % 7 == 0) {
-            console.log("BuzzBang")
-        } else if (i % 3 == 0) {
-            console.log("Fizz")
-        } else if (i % 5 == 0) {
-            console.log("Buzz")
-        } else if (i % 7 == 0) {
-            console.log("Bang")
-        } else {
+    let numbers = [[3, "Fizz"], [5, "Buzz"], [7, "Bang"], [11, "Bong"], [13, "Fezz"], [17, ""]]
+
+    for (let i = 1; i <= 300; i++) {
+        let output = []
+
+        for (const pair of numbers) {
+            if (i % pair[0] == 0) {
+                if (pair[0] == 17) {
+                    output = output.reverse()
+                } else if (pair[0] == 13) {
+                    let firstBWord = getfirstBWord(output)
+                    if (firstBWord != "") {
+                        let index = output.indexOf(firstBWord)
+                        output.splice(index, 0, pair[1])
+                    } else {
+                        output.push(pair[1])
+                    }
+                } else {
+                    output.push(pair[1])
+                }
+            }
+        }
+
+        if (output.length == 0) {
             console.log(i)
+        } else {
+            console.log(output.join(""))
         }
     }
+}
+
+function getfirstBWord(arr) {
+    for (const str of arr) {
+        if (Array.from(str)[0] == 'B') {
+            return str
+        }
+    }
+    return ""
 }
 
 // Now, we run the main function:
