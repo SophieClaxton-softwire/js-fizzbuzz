@@ -10,13 +10,8 @@ function fizzbuzz() {
                 if (pair[0] == 17) {
                     output = output.reverse()
                 } else if (pair[0] == 13) {
-                    let firstBWord = getfirstBWord(output)
-                    if (firstBWord != "") {
-                        let index = output.indexOf(firstBWord)
-                        output.splice(index, 0, pair[1])
-                    } else {
-                        output.push(pair[1])
-                    }
+                    let index = getfirstBWordIndex(output)
+                    output.splice(index, 0, pair[1])
                 } else {
                     output.push(pair[1])
                 }
@@ -31,13 +26,13 @@ function fizzbuzz() {
     }
 }
 
-function getfirstBWord(arr) {
-    for (const str of arr) {
-        if (Array.from(str)[0] == 'B') {
-            return str
+function getfirstBWordIndex(arr) {
+    for (const i in arr) {
+        if (Array.from(arr[i])[0] == 'B') {
+            return i
         }
     }
-    return ""
+    return arr.length
 }
 
 // Now, we run the main function:
