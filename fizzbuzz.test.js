@@ -15,3 +15,7 @@ test('FizzBuzz for multiples of 3 and 5, 1-15', () => {
 test('FizzBuzz for multiples of 3 and 7, 1-21', () => {
     expect(fizzbuzz([21, 3, 7])).toEqual([1, 2, "Fizz", 4, 5, "Fizz", "Bang", 8, "Fizz", 10, 11, "Fizz", 13, "Bang", "Fizz", 16, 17, "Fizz", 19, 20, "FizzBang"])
 })
+
+test('FizzBuzz for multiples of 3, 5 and 13, 1-200', () => {
+    expect(fizzbuzz([200, 3, 5, 13])).toContain("FizzFezzBuzz")
+})
