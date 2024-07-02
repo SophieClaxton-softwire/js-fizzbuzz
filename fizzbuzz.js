@@ -12,11 +12,11 @@ function fizzbuzz() {
             if (i % rule == 0) {
                 if (rule == 13) {
                     let index = getfirstBWordIndex(output)
-                    output.splice(index, 0, rules['' + rule])
+                    output.splice(index, 0, rules[rule])
                 } else if (rule == 17) {
                     output = output.reverse()
                 } else  {
-                    output.push(rules['' + rule])
+                    output.push(rules[rule])
                 }
             }
         }
@@ -29,13 +29,13 @@ function fizzbuzz() {
     }
 }
 
-function getfirstBWordIndex(arr) {
-    for (const i in arr) {
-        if (Array.from(arr[i])[0] == 'B') {
+function getfirstBWordIndex(currentOutput) {
+    for (const i in currentOutput) {
+        if (Array.from(currentOutput[i])[0] == 'B') {
             return i
         }
     }
-    return arr.length
+    return currentOutput.length
 }
 
 function getMaxNumber() {
