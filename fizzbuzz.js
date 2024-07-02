@@ -1,12 +1,21 @@
 // This is our main function
 async function fizzbuzz() {
-    let maxNum = getMaxNumber()
-    let userRules = await getUserRules()
+    let defaultRules = [
+        {'num': 3, 'word': "Fizz", 'extra': ""},
+        {'num': 5, 'word': "Buzz", 'extra': ""},
+        {'num': 7, 'word': "Bang", 'extra': ""},
+        {'num': 11, 'word': "Bong", 'extra': ""},
+        {'num': 13, 'word': "Fezz", 'extra': "BeforeB"},
+        {'num': 17, 'word': "", 'extra': "Reverse"},
+    ]
+    let args = process.argv.splice(2)
+    let maxNum = getMaxNumber(args)
+    let rules = args.includes("-user") ? await getUserRules() : defaultRules 
 
     for (let i = 1; i <= maxNum; i++) {
         let output = []
 
-        for (const rule of userRules) {
+        for (const rule of rules) {
             if (i % rule['num'] == 0) {
                 if (rule['extra'] == "BeforeB") {
                     let index = getfirstBWordIndex(output)
@@ -39,13 +48,14 @@ function getfirstBWordIndex(currentOutput) {
     return currentOutput.length
 }
 
-function getMaxNumber() {
-    let maxNumStr = process.argv[2]
-    let maxNum = 100
-    if (maxNumStr) {
-        maxNum = parseInt(maxNumStr)
+function getMaxNumber(args) {
+    let defaultMax = 100
+    if (args.includes("-max")) {
+        let index = args.indexOf("-max")
+        let max = parseInt(args[index + 1])
+        return isNaN(max) ? defaultMax : max
     }
-    return maxNum
+    return defaultMax
 }
 
 async function getUserRules() {
