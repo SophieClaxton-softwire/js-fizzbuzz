@@ -1,22 +1,23 @@
 // This is our main function
-function fizzbuzz() {
+async function fizzbuzz() {
     let maxNum = getMaxNumber()
-    let validRules = getValidRules()
-
-    let rules = {3: "Fizz", 5: "Buzz", 7: "Bang", 11: "Bong", 13: "Fezz", 17: ""}
+    let userRules = await getUserRules()
 
     for (let i = 1; i <= maxNum; i++) {
         let output = []
 
-        for (const rule of validRules) {
-            if (i % rule == 0) {
-                if (rule == 13) {
+        for (const rule of userRules) {
+            if (i % rule['num'] == 0) {
+                if (rule['extra'] == "BeforeB") {
                     let index = getfirstBWordIndex(output)
-                    output.splice(index, 0, rules[rule])
-                } else if (rule == 17) {
-                    output = output.reverse()
-                } else  {
-                    output.push(rules[rule])
+                    output.splice(index, 0, rule['word'])
+                } else {
+                    if (rule['word']) {
+                        output.push(rule['word'])
+                    }
+                    if (rule['extra'] == "Reverse") {
+                        output = output.reverse()
+                    }
                 }
             }
         }
@@ -47,15 +48,52 @@ function getMaxNumber() {
     return maxNum
 }
 
-function getValidRules() {
-    let validRules = process.argv.splice(3)
-    for (ruleIndex in validRules) {
-        validRules[ruleIndex] = parseInt(validRules[ruleIndex])
+async function getUserRules() {
+    const readline = require('node:readline')
+
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    })
+
+    const qNum = () => {
+        return new Promise((resolve) => {
+            rl.question("How many rules do you want to enter? ", resolve)
+        })
     }
-    if (validRules.length == 0) {
-        validRules = [3, 5, 7, 11, 13, 17]
+
+    const qRuleNum = () => {
+        return new Promise((resolve) => {
+            rl.question("Number: ", resolve)
+        })
     }
-    return validRules
+    const qRuleWord = () => {
+        return new Promise((resolve) => {
+            rl.question("Word: ", resolve)
+        })
+    }
+    const qRuleExtra = () => {
+        return new Promise((resolve) => {
+            rl.question("Extra: ", resolve)
+        })
+    }
+
+    let userRules = []
+
+    let numRules = parseInt(await qNum())
+
+    console.log("For each rule specify a number, optionally a word and optionally an extra command (Reverse or BeforeB)")
+    for (let i = 0; i < numRules; i++) {
+        let num = parseInt(await qRuleNum())
+        let word = await qRuleWord()
+        let extra = await qRuleExtra()
+        rule = {'num': num, 'word': word, 'extra': extra}
+        userRules.push(rule)
+    }
+
+    rl.close()
+    
+    return userRules
 }
 
 // Now, we run the main function:
