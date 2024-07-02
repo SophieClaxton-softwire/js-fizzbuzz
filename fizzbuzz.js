@@ -3,20 +3,20 @@ function fizzbuzz() {
     let maxNum = getMaxNumber()
     let validRules = getValidRules()
 
-    let rules = [[3, "Fizz"], [5, "Buzz"], [7, "Bang"], [11, "Bong"], [13, "Fezz"], [17, ""]]
+    let rules = {3: "Fizz", 5: "Buzz", 7: "Bang", 11: "Bong", 13: "Fezz", 17: ""}
 
     for (let i = 1; i <= maxNum; i++) {
         let output = []
 
-        for (const pair of rules) {
-            if (validRules.includes(pair[0]) && i % pair[0] == 0) {
-                if (pair[0] == 13) {
+        for (const rule of validRules) {
+            if (i % rule == 0) {
+                if (rule == 13) {
                     let index = getfirstBWordIndex(output)
-                    output.splice(index, 0, pair[1])
-                } else if (pair[0] == 17) {
+                    output.splice(index, 0, rules['' + rule])
+                } else if (rule == 17) {
                     output = output.reverse()
                 } else  {
-                    output.push(pair[1])
+                    output.push(rules['' + rule])
                 }
             }
         }
