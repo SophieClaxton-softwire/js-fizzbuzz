@@ -1,9 +1,14 @@
 // This is our main function
-function fizzbuzz() {
-    let maxNum = getMaxNumber()
-    let validRules = getValidRules()
+function fizzbuzz(inputs) {
+    if (inputs.length == 0) {
+        inputs = [100, 3, 5, 7, 11, 13, 17]
+    }
+    let maxNum = inputs[0]
+    let validRules = inputs.splice(1)
 
     let rules = {3: "Fizz", 5: "Buzz", 7: "Bang", 11: "Bong", 13: "Fezz", 17: ""}
+
+    let result = []
 
     for (let i = 1; i <= maxNum; i++) {
         let output = []
@@ -22,11 +27,13 @@ function fizzbuzz() {
         }
 
         if (output.length == 0) {
-            console.log(i)
+            result.push(i)
         } else {
-            console.log(output.join(""))
+            result.push(output.join(""))
         }
     }
+
+    return result
 }
 
 function getfirstBWordIndex(currentOutput) {
@@ -38,26 +45,28 @@ function getfirstBWordIndex(currentOutput) {
     return currentOutput.length
 }
 
-function getMaxNumber() {
-    let maxNumStr = process.argv[2]
-    let maxNum = 100
-    if (maxNumStr) {
-        maxNum = parseInt(maxNumStr)
-    }
-    return maxNum
-}
+// function getMaxNumber() {
+//     let maxNumStr = process.argv[2]
+//     let maxNum = 100
+//     if (maxNumStr) {
+//         maxNum = parseInt(maxNumStr)
+//     }
+//     return maxNum
+// }
 
-function getValidRules() {
-    let validRules = process.argv.splice(3)
-    for (ruleIndex in validRules) {
-        validRules[ruleIndex] = parseInt(validRules[ruleIndex])
-    }
-    if (validRules.length == 0) {
-        validRules = [3, 5, 7, 11, 13, 17]
-    }
-    return validRules
-}
+// function getValidRules() {
+//     let validRules = process.argv.splice(3)
+//     for (ruleIndex in validRules) {
+//         validRules[ruleIndex] = parseInt(validRules[ruleIndex])
+//     }
+//     if (validRules.length == 0) {
+//         validRules = [3, 5, 7, 11, 13, 17]
+//     }
+//     return validRules
+// }
 
 // Now, we run the main function:
-fizzbuzz();
+fizzbuzz([]);
+
+module.exports = fizzbuzz
 
