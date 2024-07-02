@@ -1,8 +1,14 @@
 // This is our main function
 function fizzbuzz() {
+    let maxNumStr = process.argv[2]
+    let maxNum = 100
+    if (maxNumStr) {
+        maxNum = parseInt(maxNumStr)
+    }
+
     let numbers = [[3, "Fizz"], [5, "Buzz"], [7, "Bang"], [11, "Bong"], [13, "Fezz"], [17, ""]]
 
-    for (let i = 1; i <= 300; i++) {
+    for (let i = 1; i <= maxNum; i++) {
         let output = []
 
         for (const pair of numbers) {
