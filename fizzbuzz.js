@@ -7,12 +7,12 @@ function fizzbuzz() {
 
         for (const pair of numbers) {
             if (i % pair[0] == 0) {
-                if (pair[0] == 17) {
-                    output = output.reverse()
-                } else if (pair[0] == 13) {
+                if (pair[0] == 13) {
                     let index = getfirstBWordIndex(output)
                     output.splice(index, 0, pair[1])
-                } else {
+                } else if (pair[0] == 17) {
+                    output = output.reverse()
+                } else  {
                     output.push(pair[1])
                 }
             }
